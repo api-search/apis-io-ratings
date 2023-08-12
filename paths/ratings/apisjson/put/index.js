@@ -91,7 +91,7 @@ exports.handler = vandium.generic()
                     }
                     rules = rules.substring(0, rules.length - 1);
 
-                    var sql = "UPDATE apisjson SET rules = '" + rules + "' WHERE url = '" + apisjson_url + "'";
+                    var sql = "UPDATE apisjson SET rated = " + weekNumber + ", rules = '" + rules + "' WHERE url = '" + apisjson_url + "'";
                     connection.query(sql, function (error, results, fields) { 
                       var response = {};
                       response.message = "Rated APIs.json";
