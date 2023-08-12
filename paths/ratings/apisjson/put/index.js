@@ -56,10 +56,6 @@ exports.handler = vandium.generic()
           });
         
           res.on('end', () => {
-            
-            console.log('Response ended: ');
-            
-            https://iuwhp1w2ha.execute-api.us-east-1.amazonaws.com/staging
 
             const options = {
                 protocol: 'https:',
@@ -69,7 +65,7 @@ exports.handler = vandium.generic()
                 path: '/staging/linter/apisjson',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-API-KEY': database : process.env.api_key
+                    'X-API-KEY': process.env.api_key
                 }
             };
 
