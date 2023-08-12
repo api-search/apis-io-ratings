@@ -1,8 +1,6 @@
 const vandium = require('vandium');
 const mysql  = require('mysql');
 const https  = require('https');
-const Ajv = require("ajv")
-const ajv = new Ajv({allErrors: true,strict: false}) // options can be passed, e.g. {allErrors: true}
 const AWS = require("aws-sdk");
 
 const s3 = new AWS.S3({
