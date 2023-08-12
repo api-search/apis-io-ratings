@@ -80,12 +80,13 @@ exports.handler = vandium.generic()
     
                 res.on('end', () => {
 
-                    console.log(body);
+                    var spectral_results = JSON.parse(body);
+                    console.log(spectral_results);
 
                     var rules = '';
-                    for (let i = 0; i < body.length; i++) {
-                      if(!rules.includes(body[i].code)){
-                        rules += body[i].code + ",";
+                    for (let i = 0; i < spectral_results.length; i++) {
+                      if(!rules.includes(spectral_results[i].code)){
+                        rules += spectral_results[i].code + ",";
                       }
                     }
                     rules = rules.substring(0, rules.length - 1);
