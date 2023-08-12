@@ -93,11 +93,13 @@ exports.handler = vandium.generic()
 
             req.write(postBody);
             req.end();
+            connection.end();
             
             
           });
         }).on('error', err => {
-          callback( null, err )
+          callback( null, err );
+          connection.end();
         });
         
 
@@ -107,7 +109,8 @@ exports.handler = vandium.generic()
         // Pull one that is old
         var response = {};
         response['pulling'] = "No more new ones, looking for old ones.";            
-        callback( null, results );          
+        callback( null, error );  
+        connection.end();        
         
       }
       
