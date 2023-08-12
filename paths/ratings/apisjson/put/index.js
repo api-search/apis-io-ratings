@@ -39,7 +39,8 @@ exports.handler = vandium.generic()
         apisjson_slug = apisjson_slug.replace(/\//g, '-');
         apisjson_slug = apisjson_slug.replace('.','-');
 
-        var local_apis_json = "https://kinlane-productions2.s3.amazonaws.com/" + results[0].url;
+        var local_apis_json = "https://kinlane-productions2.s3.amazonaws.com/" + results[0].path;
+        console.log(local_apis_json);
 
         https.get(local_apis_json, res => {
           
