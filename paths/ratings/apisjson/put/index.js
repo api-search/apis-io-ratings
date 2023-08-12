@@ -93,7 +93,8 @@ exports.handler = vandium.generic()
             });
 
             req.write(Buffer.concat(data).toString());
-            req.end();         
+            req.end(); 
+            connection.end();        
             
             
           });
