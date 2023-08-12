@@ -67,7 +67,8 @@ exports.handler = vandium.generic()
                 }
             };
 
-            var apisjson = JSON.parse(Buffer.concat(data).toString());
+            var apisjson = Buffer.concat(data).toString();
+            console.log(apisjson);
 
             var postBody = {
                 "req": apisjson
