@@ -56,35 +56,42 @@ exports.handler = vandium.generic()
         
           res.on('end', () => {
 
-            var apisjson = Buffer.concat(data).toString();
-            console.log(apisjson);
-
             const options = {
+                protocol: 'https:',
+                hostname: 'iuwhp1w2ha.execute-api.us-east-1.amazonaws.com',
+                port: 443,
                 method: 'PUT',
+                path: '/staging/ratings/apisjson',
                 headers: {
-                    "Accept": "application/json",
-                    "X-API-KEY": 'Bearer ' + process.env.api_key									
-                },
-                body: apisjson
-            };	
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': process.env.api_key
+                }
+            };
 
-          fetch('https://yzd9042kgi.execute-api.us-east-1.amazonaws.com/staging/ratings/apisjson',options)
-              .then(function(response) {
-                  if (!response.ok) {
-                      console.log('Error with Status Code: ' + response.status);
-                      callback( null, response.status );
-                      connection.end();
-                  }
-                  response.json().then(function(data) {	  
+            var apisjson = Buffer.concat(data).toString();
+            console.log(apisjson);                     
+        
+            var req = https.request(options, (res) => {
 
-                    callback( null, data );
+                let body = '';
+                res.on('data', (chunk) => {
+                    body += chunk;
+                });
+    
+                res.on('end', () => {
+                    console.log(body);
+                    callback( null, body );
                     connection.end();
+                });
+                res.on('error', () => {
+                  callback( null, "Error pulling from S3." );
+                  connection.end();
+                });
 
-                  });
-                })
-                .catch(function(err) {
-                    console.log('Error: ' + err);
             });
+
+            req.write(apisjson);
+            req.end();         
             
             
           });
