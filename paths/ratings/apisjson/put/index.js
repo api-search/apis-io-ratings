@@ -72,7 +72,7 @@ exports.handler = vandium.generic()
             console.log(apisjson);
 
             var postBody = {
-                "req": apisjson
+                "req": JSON.stringify(apisjson)
             }                        
         
             var req = https.request(options, (res) => {
