@@ -80,7 +80,7 @@ exports.handler = vandium.generic()
     
                 res.on('end', () => {
                     console.log(body);
-                    callback( null, body );
+                    callback( null, JSON.parse(body));
                     connection.end();
                 });
 
