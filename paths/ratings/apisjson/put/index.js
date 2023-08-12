@@ -57,9 +57,8 @@ exports.handler = vandium.generic()
           res.on('end', () => {
   
             const options = {
-                protocol: 'https',
+
                 hostname: 'yzd9042kgi.execute-api.us-east-1.amazonaws.com',
-                port: 443,
                 method: 'PUT',
                 path: '/staging/ratings/apisjson',
                 headers: {
