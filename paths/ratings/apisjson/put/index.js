@@ -70,8 +70,8 @@ exports.handler = vandium.generic()
 
             console.log(options);
 
-            var apisjson = JSON.stringify(Buffer.concat(data).toString());
-            console.log(apisjson);                     
+            //var apisjson = JSON.stringify(Buffer.concat(data).toString());
+            //console.log(apisjson);                     
         
             var req = https.request(options, (res) => {
 
@@ -92,7 +92,7 @@ exports.handler = vandium.generic()
 
             });
 
-            req.write(apisjson);
+            req.write(Buffer.concat(data).toString());
             req.end();         
             
             
