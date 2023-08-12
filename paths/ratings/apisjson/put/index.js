@@ -79,9 +79,26 @@ exports.handler = vandium.generic()
                 });
     
                 res.on('end', () => {
+
                     console.log(body);
-                    callback( null, JSON.parse(body));
-                    connection.end();
+
+                    var rules = '';
+                    for (let i = 0; i < body.length; i++) {
+                      if(!rules.includes(body[i].code)){
+                        rules += body[i].code + ",";
+                      }
+                    }
+                    rules = rules.substring(0, rules.length - 1);
+
+                    var sql = "UPDATE apisjson SET rules = '" + rules + "' WHERE url = '" + apisjson_url + "'";
+                    connection.query(sql, function (error, results, fields) { 
+                      var response = {};
+                      response.message = "Rated APIs.json";
+                      response.rules = rules;
+                      callback( null, JSON.parse(response));
+                      connection.end();
+                    }); 
+
                 });
 
                 res.on('error', () => {
