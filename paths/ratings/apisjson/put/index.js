@@ -81,19 +81,19 @@ exports.handler = vandium.generic()
                 });
     
                 res.on('end', () => {
-                    console.log(body)
-                    callback( null, body )
+                    console.log(body);
+                    callback( null, body );
+                    connection.end();
                 });
                 res.on('error', () => {
-                    console.log('error');
-                    reject(Error('HTTP call failed'));
+                  callback( null, "Error pulling from S3." );
+                  connection.end();
                 });
 
             });
 
             req.write(postBody);
-            req.end();
-            connection.end();
+            req.end();         
             
             
           });
