@@ -86,7 +86,7 @@ exports.handler = vandium.generic()
 
                 res.on('error', () => {
                   callback( null, "Error pulling from S3." );
-                  callback( null, res.statusCode) );
+                  callback( null, res.statusCode);
                   connection.end();
                 });
 
