@@ -56,46 +56,35 @@ exports.handler = vandium.generic()
         
           res.on('end', () => {
 
-            const options = {
-                protocol: 'https:',
-                hostname: 'iuwhp1w2ha.execute-api.us-east-1.amazonaws.com',
-                port: 443,
-                method: 'PUT',
-                path: '/staging/ratings/apisjson',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-API-KEY': process.env.api_key
-                }
-            };
-
             var apisjson = Buffer.concat(data).toString();
             console.log(apisjson);
 
-            var postBody = {
-                "req": JSON.stringify(apisjson)
-            }                        
-        
-            var req = https.request(options, (res) => {
+            const options = {
+                method: 'PUT',
+                headers: {
+                    "Accept": "application/json",
+                    "X-API-KEY": 'Bearer ' + process.env.api_key									
+                },
+                body: apisjson
+            };	
 
-                let body = '';
-                res.on('data', (chunk) => {
-                    body += chunk;
-                });
-    
-                res.on('end', () => {
-                    console.log(body);
-                    callback( null, body );
+          fetch('https://yzd9042kgi.execute-api.us-east-1.amazonaws.com/staging/ratings/apisjson',options)
+              .then(function(response) {
+                  if (!response.ok) {
+                      console.log('Error with Status Code: ' + response.status);
+                      callback( null, response.status );
+                      connection.end();
+                  }
+                  response.json().then(function(data) {	  
+
+                    callback( null, data );
                     connection.end();
-                });
-                res.on('error', () => {
-                  callback( null, "Error pulling from S3." );
-                  connection.end();
-                });
 
+                  });
+                })
+                .catch(function(err) {
+                    console.log('Error: ' + err);
             });
-
-            req.write(postBody);
-            req.end();         
             
             
           });
