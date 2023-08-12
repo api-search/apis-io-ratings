@@ -68,7 +68,9 @@ exports.handler = vandium.generic()
                 }
             };
 
-            var apisjson = Buffer.concat(data).toString();
+            console.log(options);
+
+            var apisjson = JSON.stringify(Buffer.concat(data).toString());
             console.log(apisjson);                     
         
             var req = https.request(options, (res) => {
