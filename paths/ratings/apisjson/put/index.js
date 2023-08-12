@@ -46,10 +46,10 @@ exports.handler = vandium.generic()
         https.get(local_apis_json, res => {
           
           let data = [];
-          const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
+          //const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
           
-          console.log('Status Code:', res.statusCode);
-          console.log('Date in Response header:', headerDate);
+          //console.log('Status Code:', res.statusCode);
+          //console.log('Date in Response header:', headerDate);
         
           res.on('data', chunk => {
             data.push(chunk);
@@ -69,13 +69,14 @@ exports.handler = vandium.generic()
                 }
             };
 
-            const apisjson = JSON.parse(Buffer.concat(data).toString());
+            var apisjson = JSON.parse(Buffer.concat(data).toString());
 
-            const postBody = {
+            var postBody = {
                 "req": apisjson
             }                        
         
-            const req = https.request(options, (res) => {
+            var req = https.request(options, (res) => {
+
                 let body = '';
                 res.on('data', (chunk) => {
                     body += chunk;
@@ -89,8 +90,9 @@ exports.handler = vandium.generic()
                     console.log('error');
                     reject(Error('HTTP call failed'));
                 });
+                
             });
-            // The below 2 lines are most important part of the whole snippet.
+
             req.write(postBody);
             req.end();
             
