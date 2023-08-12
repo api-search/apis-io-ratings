@@ -25,7 +25,7 @@ exports.handler = vandium.generic()
      
     const weekNumber = Math.ceil(days / 7);
 
-    var sql = "SELECT * FROM properties WHERE pulled <> 0 AND rated <> " + weekNumber + " AND 'status' = 200 AND ('type' LIKE '%swagger%' OR 'type' LIKE '%OPENAPI%' LIMIT 1";
+    var sql = "SELECT * FROM properties WHERE pulled <> 0 AND rated <> " + weekNumber + " AND 'status' = 200 AND (`type` LIKE '%swagger%' OR `type` LIKE '%OPENAPI%') LIMIT 1";
     connection.query(sql, function (error, results, fields) { 
       
       if(results && results.length > 0){
