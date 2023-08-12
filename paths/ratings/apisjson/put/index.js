@@ -104,8 +104,9 @@ exports.handler = vandium.generic()
                 });
 
                 res.on('error', () => {
-                  callback( null, "Error pulling from S3." );
-                  callback( null, res.statusCode);
+                  var response = {};
+                  response['pulling'] = "Problem linting the APIs.json.";            
+                  callback( null, response );  
                   connection.end();
                 });
 
@@ -116,8 +117,9 @@ exports.handler = vandium.generic()
 
           });
         }).on('error', err => {
-          callback( null, err );
-          connection.end();
+          var response = {};
+          response['pulling'] = "Problem pulling the APIs.json.";            
+          callback( null, response );  
         });
         
 
@@ -126,8 +128,8 @@ exports.handler = vandium.generic()
         
         // Pull one that is old
         var response = {};
-        response['pulling'] = "No more new ones, looking for old ones.";            
-        callback( null, error );  
+        response['pulling'] = "No more to rate.";            
+        callback( null, response );  
         connection.end();        
         
       }

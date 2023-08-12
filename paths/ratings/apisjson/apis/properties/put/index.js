@@ -25,7 +25,7 @@ exports.handler = vandium.generic()
      
     const weekNumber = Math.ceil(days / 7);
 
-    var sql = "SELECT * FROM apisjson WHERE pulled <> 0 AND rated <> " + weekNumber + " AND status = 200 AND (type LIKE '%swagger%' OR type LIKE '%OPENAPI%' LIMIT 1";
+    var sql = "SELECT * FROM properties WHERE pulled <> 0 AND rated <> " + weekNumber + " AND status = 200 AND (type LIKE '%swagger%' OR type LIKE '%OPENAPI%' LIMIT 1";
     connection.query(sql, function (error, results, fields) { 
       
       if(results && results.length > 0){
@@ -51,6 +51,19 @@ exports.handler = vandium.generic()
           });
         
           res.on('end', () => {
+
+            var openapi_file = Buffer.concat(data).toString();
+
+            // We need know if it is OpenAPI or Swagger - Probably JSON Schema validation at some point
+            var type = '';
+            var openapi_object = JSON.parse(openapi_file);
+            if(openapi_object.openapi){
+              type = 'openapi';
+            }
+            if(openapi_object.swagger){
+              type = 'swagger';
+            }
+            // At this point I don't care -- but will need to care in the future.
 
             const options = {
                 hostname: 'iuwhp1w2ha.execute-api.us-east-1.amazonaws.com',
@@ -87,7 +100,7 @@ exports.handler = vandium.generic()
                     }
                     rules = rules.substring(0, rules.length - 1);
 
-                    var sql = "UPDATE apisjson SET rated = " + weekNumber + ", rules = '" + rules + "' WHERE url = '" + apisjson_url + "'";
+                    var sql = "UPDATE properties SET rated = " + weekNumber + ", rules = '" + rules + "' WHERE url = '" + apisjson_url + "'";
                     connection.query(sql, function (error, results, fields) { 
                       var response = {};
                       response.message = "Rated " + apisjson_name + " APIs.json";
@@ -99,20 +112,23 @@ exports.handler = vandium.generic()
                 });
 
                 res.on('error', () => {
-                  callback( null, "Error pulling from S3." );
-                  callback( null, res.statusCode);
-                  connection.end();
+                  var response = {};
+                  response['pulling'] = "Problem linting the OpenAPI / Swagger.";            
+                  callback( null, response );  
+                  connection.end();   
                 });
 
             });
 
-            req.write(Buffer.concat(data).toString());
+            req.write(openapi_file);
             req.end(); 
 
           });
         }).on('error', err => {
-          callback( null, err );
-          connection.end();
+          var response = {};
+          response['pulling'] = "Problem pulling from S3.";            
+          callback( null, response );  
+          connection.end();   
         });
         
 
@@ -122,7 +138,7 @@ exports.handler = vandium.generic()
         // Pull one that is old
         var response = {};
         response['pulling'] = "No more new ones, looking for old ones.";            
-        callback( null, error );  
+        callback( null, response );  
         connection.end();        
         
       }
