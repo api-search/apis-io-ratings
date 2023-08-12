@@ -61,8 +61,8 @@ exports.handler = vandium.generic()
                 protocol: 'https:',
                 hostname: 'iuwhp1w2ha.execute-api.us-east-1.amazonaws.com',
                 port: 443,
-                method: 'POST',
-                path: '/staging/linter/apisjson',
+                method: 'PUT',
+                path: '/staging/ratings/apisjson',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-API-KEY': process.env.api_key
@@ -90,7 +90,7 @@ exports.handler = vandium.generic()
                     console.log('error');
                     reject(Error('HTTP call failed'));
                 });
-                
+
             });
 
             req.write(postBody);
