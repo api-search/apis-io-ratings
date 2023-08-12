@@ -55,16 +55,16 @@ exports.handler = vandium.generic()
           });
         
           res.on('end', () => {
-
+  
             const options = {
                 protocol: 'https:',
-                hostname: 'iuwhp1w2ha.execute-api.us-east-1.amazonaws.com',
+                hostname: 'yzd9042kgi.execute-api.us-east-1.amazonaws.com',
                 port: 443,
                 method: 'PUT',
                 path: '/staging/ratings/apisjson',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-API-KEY': process.env.api_key
+                    'x-api-key': process.env.api_key
                 }
             };
 
