@@ -55,11 +55,11 @@ exports.handler = vandium.generic()
           });
         
           res.on('end', () => {
-  
+
             const options = {
-                hostname: 'yzd9042kgi.execute-api.us-east-1.amazonaws.com',
+                hostname: 'iuwhp1w2ha.execute-api.us-east-1.amazonaws.com',
                 method: 'PUT',
-                path: '/staging/ratings/apisjson',
+                path: '/staging/linter/apisjson',
                 headers: {
                     'Content-Type': 'application/json',
                     'x-api-key': process.env.api_key
