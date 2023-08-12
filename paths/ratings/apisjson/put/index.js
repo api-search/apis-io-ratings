@@ -58,7 +58,7 @@ exports.handler = vandium.generic()
 
             const options = {
                 hostname: 'iuwhp1w2ha.execute-api.us-east-1.amazonaws.com',
-                method: 'PUT',
+                method: 'POST',
                 path: '/staging/linter/apisjson',
                 headers: {
                     'Content-Type': 'application/json',
