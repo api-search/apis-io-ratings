@@ -25,7 +25,7 @@ exports.handler = vandium.generic()
      
     const weekNumber = Math.ceil(days / 7);
 
-    var sql = "SELECT * FROM apisjson WHERE rated <> " + weekNumber + " LIMIT 1";
+    var sql = "SELECT * FROM apisjson WHERE rated <> " + weekNumber + " AND valid = 1 LIMIT 1";
     connection.query(sql, function (error, results, fields) { 
       
       if(results && results.length > 0){
