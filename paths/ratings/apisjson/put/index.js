@@ -95,7 +95,7 @@ exports.handler = vandium.generic()
                       var response = {};
                       response.message = "Rated APIs.json";
                       response.rules = rules;
-                      callback( null, JSON.parse(response));
+                      callback( null, response);
                       connection.end();
                     }); 
 
