@@ -1,8 +1,6 @@
 const vandium = require('vandium');
 const mysql  = require('mysql');
 const https  = require('https');
-const Ajv = require("ajv")
-const ajv = new Ajv({allErrors: true,strict: false}) // options can be passed, e.g. {allErrors: true}
 
 exports.handler = vandium.generic()
   .handler( (event, context, callback) => {
@@ -24,6 +22,14 @@ exports.handler = vandium.generic()
     connection.query(sql, function (error, results, fields) { 
       
       if(results && results.length > 0){
+
+        // Authoratative
+
+        // Sum of Properties
+
+        // Sum of APIs.json Rules
+
+        // Sum of Properties Rules
         
         callback( null, results );                
 
