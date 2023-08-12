@@ -57,7 +57,6 @@ exports.handler = vandium.generic()
           res.on('end', () => {
   
             const options = {
-
                 hostname: 'yzd9042kgi.execute-api.us-east-1.amazonaws.com',
                 method: 'PUT',
                 path: '/staging/ratings/apisjson',
@@ -70,7 +69,7 @@ exports.handler = vandium.generic()
             console.log(options);
 
             //var apisjson = JSON.stringify(Buffer.concat(data).toString());
-            //console.log(apisjson);                     
+            console.log(Buffer.concat(data).toString());                     
         
             var req = https.request(options, (res) => {
 
@@ -84,6 +83,7 @@ exports.handler = vandium.generic()
                     callback( null, body );
                     connection.end();
                 });
+
                 res.on('error', () => {
                   callback( null, "Error pulling from S3." );
                   connection.end();
@@ -93,9 +93,7 @@ exports.handler = vandium.generic()
 
             req.write(Buffer.concat(data).toString());
             req.end(); 
-            connection.end();        
-            
-            
+
           });
         }).on('error', err => {
           callback( null, err );
