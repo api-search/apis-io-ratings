@@ -64,7 +64,7 @@ exports.handler = vandium.generic()
                   // Sum of Properties
                   properties_total = results3[0].property_count;                  
           
-                  var sql4 = "SELECT sum(score) as rules_total FROM rules WHERE name IN ('" + rules_in + "')";
+                  var sql5sql4 = "SELECT sum(score) as rules_total FROM rules WHERE name IN ('" + rules_in + "')";
                   connection.query(sql4, function (error, results4, fields) { 
                     
                     if(results4 && results4.length > 0){
@@ -81,18 +81,39 @@ exports.handler = vandium.generic()
 
                       var score = authoritative_total + properties_total + rules_total;
 
-                      // (100 * partialValue) / totalValue
+                      var sql5 = "SELECT max(score) as max_score FROM apisjson";
+                      connection.query(sql4, function (error, results5, fields) { 
+                        
+                        if(results5 && results5.length > 0){
+        
+                          // Max Score
+                          var max_score = results5[0].max_score;                  
+    
+                          var percentage = (100 * score) / max_score;
+    
+                          var sql5 = "UPDATE apisjson SET score = " + score + ",percentage = " + percentage + ", scored = " + weekNumber + " WHERE url = '" + apisjson_url + "'";
+                          connection.query(sql5, function (error, results4, fields) {                       
+                          
+                            // Update score
+                            var response = {};
+                            response.sql5 = sql5;
+                            response['pulling'] = "Updated score.";            
+                            callback( null, response );     
+    
+                          });  
+                          
+                        }
+                        else{
+                          
+                          // Pull one that is old
+                          var response = {};
+                          response.sql5 = sql5;
+                          response['pulling'] = "No rules.";            
+                          callback( null, response );          
+                          
+                        }
 
-                      var sql5 = "UPDATE apisjson SET score = " + score + ", scored = " + weekNumber + " WHERE url = '" + apisjson_url + "'";
-                      connection.query(sql5, function (error, results4, fields) {                       
-                      
-                        // Update score
-                        var response = {};
-                        response.sql5 = sql5;
-                        response['pulling'] = "Updated score.";            
-                        callback( null, response );     
-
-                      });  
+                      });   
                       
                     }
                     else{
