@@ -87,7 +87,7 @@ exports.handler = vandium.generic()
                       // Pull one that is old
                       var response = {};
                       response['pulling'] = "No rules.";            
-                      callback( null, sql );          
+                      callback( null, response );          
                       
                     }
                     
@@ -99,7 +99,7 @@ exports.handler = vandium.generic()
                   // Pull one that is old
                   var response = {};
                   response['pulling'] = "No properties.";            
-                  callback( null, sql );          
+                  callback( null, response );          
                   
                 }
                 
@@ -112,7 +112,7 @@ exports.handler = vandium.generic()
               // Pull one that is old
               var response = {};
               response['pulling'] = "No APIs.";            
-              callback( null, sql );          
+              callback( null, response );          
               
             }
             
@@ -124,7 +124,7 @@ exports.handler = vandium.generic()
         // Pull one that is old
         var response = {};
         response['pulling'] = "No APIs.json.";            
-        callback( null, sql );          
+        callback( null, response );          
         
       }
       
