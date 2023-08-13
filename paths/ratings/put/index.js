@@ -18,27 +18,112 @@ exports.handler = vandium.generic()
      
     const weekNumber = Math.ceil(days / 7);    
     
-    var sql = "SELECT url FROM openapi WHERE scored <> " + weekNumber + " LIMIT 1";
-    connection.query(sql, function (error, results, fields) { 
+    var sql1 = "SELECT * FROM apisjson WHERE scored <> " + weekNumber + " LIMIT 1";
+    connection.query(sql1, function (error, results1, fields) { 
       
-      if(results && results.length > 0){
+      if(results1 && results1.length > 0){
 
-        // Authoratative
+          var apisjson_name = results1[0].name;
+          var apisjson_url = results1[0].url;
+          var apisjson_url2 = new URL(apisjson_url);
+          var apisjson_host = apisjson_url2.hostname;
+          var apisjson_rules = results1[0].rules;
+          var rules_in = apisjson_rules.replace(/,/g, "','");
 
-        // Sum of Properties
+          var authoritative_total = 0;
+          var properties_total = 0;
+          var rules_total = 0;
+    
+          var sql2 = "SELECT * FROM apis WHERE apisjson_url = '" + apisjson_url + "'";
+          connection.query(sql2, function (error, results2, fields) { 
+            
+            if(results2 && results2.length > 0){
 
-        // Sum of APIs.json Rules
+              var all_base_url = '';
+              for (let i = 0; i < results2.length; i++) {
 
-        // Sum of Properties Rules
-        
-        callback( null, results );                
+                var api_human_url = results2[i].humanURL;
+                var api_base_url = results2[i].baseURL;
+                all_base_url += "'" + api_base_url + "',";
+                var api_human_url2 = new URL(api_human_url);
+                var api_human_host = api_human_url2.hostname;   
+                
+                console.log(apisjson_host + ' == ' + api_human_host);
+                if(apisjson_host == api_human_host){
+                  authoritative_total++;
+                }
+    
+              }
+              all_base_url = all_base_url.substring(0, all_base_url.length - 1);
+      
+              var sql3 = "SELECT count(*) as property_count FROM properties WHERE api_base_url IN (" + all_base_url + ") AND `status` = 200";
+              connection.query(sql3, function (error, results3, fields) { 
+                
+                if(results3 && results3.length > 0){
+
+                  // Sum of Properties
+                  properties_total = results3[0].property_count;                  
+          
+                  var sql4 = "SELECT sum(score) as rules_total FROM rules WHERE name IN ('" + rules_in + "')";
+                  connection.query(sql4, function (error, results4, fields) { 
+                    
+                    if(results4 && results4.length > 0){
+    
+                      // Sum of APIs.json Rules
+                      rules_total = results4[0].rules_total;                  
+              
+                      // Sum of Properties Rules - NEXT
+
+                      var results = {};
+                      results.authoritative_total = authoritative_total;
+                      results.properties_total = properties_total;
+                      results.rules_total = rules_total;
+                      
+                      callback( null, results );     
+                      
+                    }
+                    else{
+                      
+                      // Pull one that is old
+                      var response = {};
+                      response['pulling'] = "No rules.";            
+                      callback( null, sql );          
+                      
+                    }
+                    
+                  });   
+                  
+                }
+                else{
+                  
+                  // Pull one that is old
+                  var response = {};
+                  response['pulling'] = "No properties.";            
+                  callback( null, sql );          
+                  
+                }
+                
+              }); 
+                      
+      
+            }
+            else{
+              
+              // Pull one that is old
+              var response = {};
+              response['pulling'] = "No APIs.";            
+              callback( null, sql );          
+              
+            }
+            
+          }); 
 
       }
       else{
         
         // Pull one that is old
         var response = {};
-        response['pulling'] = "old ones";            
+        response['pulling'] = "No APIs.json.";            
         callback( null, sql );          
         
       }
