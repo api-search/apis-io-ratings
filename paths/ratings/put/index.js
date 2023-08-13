@@ -64,7 +64,7 @@ exports.handler = vandium.generic()
                   // Sum of Properties
                   properties_total = results3[0].property_count;                  
           
-                  var sql5sql4 = "SELECT sum(score) as rules_total FROM rules WHERE name IN ('" + rules_in + "')";
+                  var sql4 = "SELECT sum(score) as rules_total FROM rules WHERE name IN ('" + rules_in + "')";
                   connection.query(sql4, function (error, results4, fields) { 
                     
                     if(results4 && results4.length > 0){
@@ -82,7 +82,7 @@ exports.handler = vandium.generic()
                       var score = authoritative_total + properties_total + rules_total;
 
                       var sql5 = "SELECT max(score) as max_score FROM apisjson";
-                      connection.query(sql4, function (error, results5, fields) { 
+                      connection.query(sql5, function (error, results5, fields) { 
                         
                         if(results5 && results5.length > 0){
         
@@ -91,8 +91,8 @@ exports.handler = vandium.generic()
     
                           var percentage = (100 * score) / max_score;
     
-                          var sql5 = "UPDATE apisjson SET score = " + score + ",percentage = " + percentage + ", scored = " + weekNumber + " WHERE url = '" + apisjson_url + "'";
-                          connection.query(sql5, function (error, results4, fields) {                       
+                          var sql6 = "UPDATE apisjson SET score = " + score + ",percentage = " + percentage + ", scored = " + weekNumber + " WHERE url = '" + apisjson_url + "'";
+                          connection.query(sql6, function (error, results6, fields) {                       
                           
                             // Update score
                             var response = {};
