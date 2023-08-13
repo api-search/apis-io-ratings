@@ -97,7 +97,7 @@ exports.handler = vandium.generic()
                             // Update score
                             var response = {};
                             response.sql5 = sql5;
-                            response['pulling'] = "Updated score.";            
+                            response['pulling'] = "Updated score for " + apisjson_name + ".";            
                             callback( null, response );     
     
                           });  
