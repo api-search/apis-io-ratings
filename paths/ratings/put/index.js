@@ -78,8 +78,19 @@ exports.handler = vandium.generic()
                       results.authoritative_total = authoritative_total;
                       results.properties_total = properties_total;
                       results.rules_total = rules_total;
+
+                      var score = authoritative_total + properties_total + rules_total;
+
+                      var sql5 = "UPDATE apisjson SET score = " + score + ", scored = " + weekNumber + " WHERE url = '" + apisjson_url + "'";
+                      connection.query(sql5, function (error, results4, fields) {                       
                       
-                      callback( null, results );     
+                        // Update score
+                        var response = {};
+                        response.sql5 = sql5;
+                        response['pulling'] = "Updated score.";            
+                        callback( null, response );     
+
+                      });  
                       
                     }
                     else{
