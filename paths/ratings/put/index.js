@@ -18,7 +18,7 @@ exports.handler = vandium.generic()
      
     const weekNumber = Math.ceil(days / 7);    
     
-    var sql1 = "SELECT * FROM apisjson WHERE scored <> " + weekNumber + " LIMIT 1";
+    var sql1 = "SELECT * FROM apisjson WHERE scored <> " + weekNumber + " AND valid = 1 LIMIT 1";
     connection.query(sql1, function (error, results1, fields) { 
       
       if(results1 && results1.length > 0){
@@ -80,6 +80,8 @@ exports.handler = vandium.generic()
                       results.rules_total = rules_total;
 
                       var score = authoritative_total + properties_total + rules_total;
+
+                      // (100 * partialValue) / totalValue
 
                       var sql5 = "UPDATE apisjson SET score = " + score + ", scored = " + weekNumber + " WHERE url = '" + apisjson_url + "'";
                       connection.query(sql5, function (error, results4, fields) {                       
