@@ -25,8 +25,8 @@ exports.handler = vandium.generic()
      
     const weekNumber = Math.ceil(days / 7);
 
-    var sql = "SELECT * FROM apisjson WHERE rated <> " + weekNumber + " AND valid = 1 LIMIT 1";
-    connection.query(sql, function (error, results, fields) { 
+    var sql1 = "SELECT * FROM apisjson WHERE rated <> " + weekNumber + " AND valid = 1 LIMIT 1";
+    connection.query(sql1, function (error, results, fields) { 
       
       if(results && results.length > 0){
         
@@ -41,13 +41,12 @@ exports.handler = vandium.generic()
         apisjson_slug = apisjson_slug.replace('.','-');
 
         var local_apis_json = "https://kinlane-productions2.s3.amazonaws.com/" + results[0].path;
-        console.log(local_apis_json);
+        //console.log(local_apis_json);
 
         https.get(local_apis_json, res => {
           
           let data = [];
-          //const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
-          
+          //const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';          
           //console.log('Status Code:', res.statusCode);
           //console.log('Date in Response header:', headerDate);
         
@@ -67,10 +66,10 @@ exports.handler = vandium.generic()
                 }
             };
 
-            console.log(options);
+            //console.log(options);
 
             //var apisjson = JSON.stringify(Buffer.concat(data).toString());
-            console.log(Buffer.concat(data).toString());                     
+            //console.log(Buffer.concat(data).toString());                     
         
             var req = https.request(options, (res) => {
 
@@ -92,11 +91,13 @@ exports.handler = vandium.generic()
                     }
                     rules = rules.substring(0, rules.length - 1);
 
-                    var sql = "UPDATE apisjson SET rated = " + weekNumber + ", rules = '" + rules + "' WHERE url = '" + apisjson_url + "'";
-                    connection.query(sql, function (error, results, fields) { 
+                    var sql2 = "UPDATE apisjson SET rated = " + weekNumber + ", rules = '" + rules + "' WHERE url = '" + apisjson_url + "'";
+                    connection.query(sql2, function (error, results, fields) { 
                       var response = {};
                       response.message = "Rated " + apisjson_name + " APIs.json";
                       response.rules = rules;
+                      response.sql2 = sql2;
+                      response.results = results;
                       callback( null, response);
                       connection.end();
                     }); 
