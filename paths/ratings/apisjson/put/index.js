@@ -130,8 +130,8 @@ exports.handler = vandium.generic()
         // Pull one that is old
         var response = {};
         response['pulling'] = "No more to rate.";            
-        response.sql = sql;
-        response.sql = results;
+        response.sql = sql1;
+        response.results = results;
         callback( null, response );  
         connection.end();        
         
