@@ -130,6 +130,7 @@ exports.handler = vandium.generic()
         var response = {};
         response['pulling'] = "No more to rate.";            
         response.sql = sql;
+        response.sql = results;
         callback( null, response );  
         connection.end();        
         
