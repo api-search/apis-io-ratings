@@ -96,8 +96,8 @@ exports.handler = vandium.generic()
                       var response = {};
                       response.message = "Rated " + apisjson_name + " APIs.json";
                       response.rules = rules;
-                      response.sql2 = sql2;
-                      response.results = results;
+                      //response.sql2 = sql2;
+                      //response.results = results;
                       callback( null, response);
                       connection.end();
                     }); 
@@ -130,8 +130,8 @@ exports.handler = vandium.generic()
         // Pull one that is old
         var response = {};
         response['pulling'] = "No more to rate.";            
-        response.sql = sql1;
-        response.results = results;
+        //response.sql = sql1;
+        //response.results = results;
         callback( null, response );  
         connection.end();        
         
