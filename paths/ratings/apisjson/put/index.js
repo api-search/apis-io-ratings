@@ -106,7 +106,7 @@ exports.handler = vandium.generic()
 
                 res.on('error', () => {
                   var response = {};
-                  response['pulling'] = "Problem linting the APIs.json.";            
+                  response['message'] = "Problem linting the APIs.json.";            
                   callback( null, response );  
                   connection.end();
                 });
@@ -119,7 +119,7 @@ exports.handler = vandium.generic()
           });
         }).on('error', err => {
           var response = {};
-          response['pulling'] = "Problem pulling the APIs.json.";            
+          response['message'] = "Problem pulling the APIs.json.";            
           callback( null, response );  
         });
         
@@ -129,7 +129,7 @@ exports.handler = vandium.generic()
         
         // Pull one that is old
         var response = {};
-        response['pulling'] = "No more to rate.";            
+        response['message'] = "No more to rate.";            
         //response.sql = sql1;
         //response.results = results;
         callback( null, response );  

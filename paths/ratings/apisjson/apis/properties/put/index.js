@@ -113,7 +113,7 @@ exports.handler = vandium.generic()
 
                 res.on('error', () => {
                   var response = {};
-                  response['pulling'] = "Problem linting the OpenAPI / Swagger.";            
+                  response['message'] = "Problem linting the OpenAPI / Swagger.";            
                   callback( null, response );  
                   connection.end();   
                 });
@@ -126,7 +126,7 @@ exports.handler = vandium.generic()
           });
         }).on('error', err => {
           var response = {};
-          response['pulling'] = "Problem pulling from S3.";            
+          response['message'] = "Problem pulling from S3.";            
           callback( null, response );  
           connection.end();   
         });
@@ -137,7 +137,7 @@ exports.handler = vandium.generic()
         
         // Pull one that is old
         var response = {};
-        response['pulling'] = "No more new ones, looking for old ones.";            
+        response['message'] = "No more new ones, looking for old ones.";            
         callback( null, response );  
         connection.end();        
         
