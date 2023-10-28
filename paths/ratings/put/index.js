@@ -34,7 +34,7 @@ exports.handler = vandium.generic()
           var properties_total = 0;
           var rules_total = 0;
     
-          var sql2 = "SELECT * FROM apis WHERE apisjson_url = '" + apisjson_url + "'";
+          var sql2 = "SELECT * FROM apis WHERE apisjson_url = '" + apisjson_url + "' AND humanURL <> ''";
           connection.query(sql2, function (error, results2, fields) { 
             
             if(results2 && results2.length > 0){
@@ -49,6 +49,7 @@ exports.handler = vandium.generic()
                 var api_human_host = api_human_url2.hostname;   
                 
                 console.log(apisjson_host + ' == ' + api_human_host);
+
                 if(apisjson_host == api_human_host){
                   authoritative_total++;
                 }
