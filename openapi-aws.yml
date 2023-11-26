@@ -4,7 +4,7 @@ info:
   description: This is the ratings API.
   version: V1
 servers:
-- url: https://6lmdrlqfjj.execute-api.us-east-1.amazonaws.com/staging
+- url: https://ratings-api.apis.io
 paths:
 
   /ratings:
