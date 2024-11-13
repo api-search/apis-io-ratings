@@ -1,4 +1,4 @@
-aid: apis-io
+aid: apis-io-ratings
 specificationVersion: '0.18'
 name: APIs.io Ratings API
 description: >-
@@ -14,7 +14,7 @@ tags:
 
 apis:
 
-  - aid: apis-io:ratings-api
+  - aid: apis-io-ratings:ratings-api
     name: APIs.io Ratings API
     description: >-
       This is the API for powering APIs.io.
