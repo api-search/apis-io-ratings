@@ -10,6 +10,7 @@ apis:
     contact:
       - FN: APIs.io
         email: info@apis.io
+    humanURL: https://developer.apis.io/documentation
     properties:
       - url: https://github.com/api-search/ratings-api
         type: GitHubRepository
@@ -20,8 +21,7 @@ apis:
         type: Documentation
       - url: properties/openapi.yml
         type: OpenAPI
-    humanURL: https://developer.apis.io/documentation
-    description: This is the API for powering APIs.io.
+    description: This is the ratings engine for the APIs.io API search engine.
 name: APIs.io Ratings API
 tags:
   - Ratings
