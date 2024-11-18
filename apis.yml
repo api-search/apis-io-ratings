@@ -1,38 +1,16 @@
 aid: apis-io-ratings
-specificationVersion: '0.18'
-name: APIs.io Ratings API
-description: >-
-  This is the contract for the APIs.io Ratings API used to govern the APIs.io search ratings.
-created: '2024-08-20'
-modified: '2024-11-13'  
 url: https://github.com/api-search/ratings-api/blob/main/apis.yml
-type: Contract
-position: Producer
-access: 1st-Party
-image: https://kinlane-productions2.s3.amazonaws.com/apis-io/apis-io-api-logo.jpg
-tags:
-
-  - Ratings
-
 apis:
-
   - aid: apis-io-ratings:ratings-api
     name: APIs.io Ratings API
-    description: >-
-      This is the API for powering APIs.io.
     tags:
-
       - Ratings
-
     image: https://kinlane-productions2.s3.amazonaws.com/apis-io/apis-io-api-logo.jpg
-    humanURL: https://developer.apis.io/documentation
     baseURL: https://ratings-api.apis.io
-
     contact:
       - FN: APIs.io
         email: info@apis.io
-    
-    ratings:
+    properties:
       - url: https://github.com/api-search/ratings-api
         type: GitHubRepository
       - url: >-
@@ -42,9 +20,15 @@ apis:
         type: Documentation
       - url: properties/openapi.yml
         type: OpenAPI
-
+    humanURL: https://developer.apis.io/documentation
+    description: This is the API for powering APIs.io.
+name: APIs.io Ratings API
+tags:
+  - Ratings
+type: Contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-io/apis-io-api-logo.jpg
+access: 1st-Party
 common:
-
   - url: https://github.com/api-search/
     type: GitHubOrganization
   - url: https://www.postman.com/api-evangelist/apis-io-api-search-ratings/overview
@@ -109,8 +93,14 @@ common:
     type: OperationalValidation
   - url: https://api-evangelist-tools.github.io/apis-io-ratings-api-api-validator/
     type: APIValidation
-
+created: '2024-08-20'
+modified: '2024-11-17'
+position: Producer
 ratingss:
   - FN: Kin Lane
     email: info@apievangelist.com
     X-github: kinlane
+description: >-
+  This is the contract for the APIs.io Ratings API used to govern the APIs.io
+  search ratings.
+specificationVersion: '0.18'
